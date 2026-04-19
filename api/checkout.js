@@ -1,4 +1,4 @@
-const Stripe = require('stripe');
+import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -19,7 +19,6 @@ export default async function handler(req, res) {
       wantAgentMatch,
     } = req.body;
 
-    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
@@ -32,7 +31,7 @@ export default async function handler(req, res) {
               name: 'Offer Analysis',
               description: `Property: ${propertyAddress}`,
             },
-            unit_amount: 500, // $5.00 in cents
+            unit_amount: 500,
           },
           quantity: 1,
         },
@@ -47,8 +46,8 @@ export default async function handler(req, res) {
         recommendedOffer,
         wantAgentMatch,
       },
-      success_url: `${process.env.VERCEL_URL || 'http://localhost:3000'}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.VERCEL_URL || 'http://localhost:3000'}/`,
+      success_url: `https://${req.headers.host}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://${req.headers.host}/`,
     });
 
     res.status(200).json({ url: session.url });
