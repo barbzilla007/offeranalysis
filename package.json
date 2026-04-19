@@ -1,0 +1,19 @@
+{
+  "name": "offeranalysis",
+  "version": "1.0.0",
+  "description": "Offer Analysis Tool",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "stripe": "^14.0.0",
+    "@sendgrid/mail": "^8.0.0"
+  },
+  "devDependencies": {
+    "next": "^14.0.0"
+  }
+}
