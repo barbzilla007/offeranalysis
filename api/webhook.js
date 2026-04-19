@@ -1,5 +1,5 @@
-const Stripe = require('stripe');
-const sgMail = require('@sendgrid/mail');
+import Stripe from 'stripe';
+import sgMail from '@sendgrid/mail';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -49,7 +49,7 @@ export default async function handler(req, res) {
       try {
         const msg = {
           to: process.env.YOUR_EMAIL,
-          from: 'noreply@offeranalysis.io',
+          from: process.env.YOUR_EMAIL,
           subject: `New Agent Referral Lead: ${propertyAddress}`,
           html: `
             <h2>New Referral Lead</h2>
